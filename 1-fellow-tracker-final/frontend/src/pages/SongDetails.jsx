@@ -6,7 +6,7 @@ const SongDetails = () => {
   const [song, setSong] = useState({});
   const [newSongName, setNewSongName] = useState("");
   const [error, setError] = useState("");
-  const [remove, setRemove] = useState(false);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,14 +22,19 @@ const SongDetails = () => {
     doFetch();
   }, []);
 
+  // The delete does actually work it's just very random
+  // sometimes 1 click sometimes 2-3 might just be a lag issue
   useEffect(() => {
-    if (remove) {
+    if (isConfirmingDelete) {
       const confirmDeletion = window.confirm(
-        "Are you sure you want to delete this song???",
+        "Are you sure you want to delete this song?",
       );
-      confirmDeletion ? deleteSong() : setRemove(false);
+      if (confirmDeletion) {
+        deleteSong();
+      }
+      setIsConfirmingDelete(false);
     }
-  }, [remove]);
+  }, [isConfirmingDelete]);
 
   const deleteSong = async () => {
     try {
@@ -71,7 +76,10 @@ const SongDetails = () => {
         <h1 className="pt-10 text-purple-500">Song Details</h1>
         <p className="font-light">song name : {song.name}</p>
         <p className="font-light">num: {song.id}</p>
-        <button onClick={() => setRemove(true)} className="mx-auto w-[30%]">
+        <button
+          onClick={() => setIsConfirmingDelete(true)}
+          className="mx-auto w-[30%]"
+        >
           Delete Song
         </button>
         <form

@@ -1,5 +1,7 @@
-const getId = require('../utils/getId');
+const getId = require("../utils/getId")
 
+// the comments are useful and most likely better then
+//what I would write so I just had to keep them lol
 
 /* 
 This class provides an interface for managing Fellow data. 
@@ -9,60 +11,67 @@ The class itself provides static methods for CRUD actions on
 the collection of fellows.
 */
 class Song {
-  static #all = [];
+  static #all = []
 
-  constructor(name) { // Create
-    this.id = getId();
-    this.name = name;
+  constructor(name) {
+    // Create
+    this.id = getId()
+    this.name = name
 
-    Song.#all.push(this);
+    Song.#all.push(this)
   }
 
-  static list() { // Get all
-    return Song.#all;
+  static list() {
+    // Get all
+    return Song.#all
   }
 
-  static find(id) { // Get one
-    return Song.#all.find((song) => song.id === id);
+  static find(id) {
+    // Get one
+    return Song.#all.find((song) => song.id === id)
   }
 
-  static editName(id, newName) { // Update
-    const song = Song.find(id);
-    if (!song) return null;
-    song.name = newName;
-    return song;
+  static editName(id, newName) {
+    // Update
+    const song = Song.find(id)
+    if (!song) return null
+    song.name = newName
+    return song
   }
 
-  static delete(id) { // Delete
-    const songIndex = Song.#all.findIndex((song) => song.id === id);
-    if (songIndex < 0) return null;
+  static delete(id) {
+    // Delete
+    const songIndex = Song.#all.findIndex((song) => song.id === id)
+    if (songIndex < 0) return null
 
-    Song.#all.splice(songIndex, 1);
-    return true;
+    Song.#all.splice(songIndex, 1)
+    return true
   }
 
-  static deleteAll() { // Delete All
-    if (!Song.#all.length) return null;
+  static deleteAll() {
+    // Delete All
+    if (!Song.#all.length) return null
 
-    Song.#all.length = 0;
-    return Song.#all;
+    Song.#all.length = 0
+    return Song.#all
   }
 }
 
+const print = console.log()
 /* 
 Take a moment and play with these class methods. Try the following and
-run this file with `node Fellow.js`:
+run this file with `node Song.js`:
 
-const ben = new Fellow('ben');
-const zo = new Fellow('zo');
-const carmen = new Fellow('carmen');
-const gonzalo = new Fellow('gonzalo');
+const ben = new Song('ben');
+const zo = new Song('zo');
+const carmen = new Song('carmen');
+const gonzalo = new Song('gonzalo');
 
-console.log(Fellow.list())
-console.log(Fellow.find(1))
-console.log(Fellow.editName(1, 'ZO!!'))
-console.log(Fellow.delete(2))
-console.log(Fellow.list())
+print(Song.list())
+print(Song.find(1))
+print(Song.editName(1, 'ZO!!'))
+print(Song.delete(2))
+print(Song.list())
 */
 
-module.exports = Song;
+module.exports = Song

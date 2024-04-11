@@ -27,11 +27,7 @@ const SongDetails = () => {
       const confirmDeletion = window.confirm(
         "Are you sure you want to delete this song???",
       );
-      if (confirmDeletion) {
-        deleteSong();
-      } else {
-        setRemove(false);
-      }
+      confirmDeletion ? deleteSong() : setRemove(false);
     }
   }, [remove]);
 

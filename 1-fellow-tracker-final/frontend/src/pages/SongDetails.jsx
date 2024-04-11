@@ -79,7 +79,7 @@ const SongDetails = () => {
             value={newSongName}
             onChange={(e) => {
               setNewSongName(e.target.value);
-              setError(""); // clears when user types
+              setError(""); // clears when user starts typing
             }}
           />
           <button type="submit">Submit</button>

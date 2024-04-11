@@ -64,7 +64,7 @@ const Home = () => {
             value={newSongName}
             onChange={(e) => {
               setNewSongName(e.target.value);
-              setError(""); // clear when user types
+              setError(""); // clears when user types
             }}
           />
           <button type="submit">Submit</button>

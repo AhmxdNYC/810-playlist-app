@@ -21,6 +21,7 @@ const serveSong = (req, res) => {
 
 const createSong = (req, res) => {
   const { songName } = req.body // The POST request body will be an object: `{ fellowName: 'name' }`
+  if (!songName) return res.status(400).send("Please provide a song name")
   const newSong = new Song(songName)
   res.send(newSong)
 }

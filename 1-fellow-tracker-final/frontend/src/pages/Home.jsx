@@ -6,6 +6,7 @@ const Home = () => {
   const [songs, setSongs] = useState([]);
   const [newSongName, setNewSongName] = useState("");
   const [newlyAddedSong, setNewlyAddedSong] = useState({});
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const doFetch = async () => {
@@ -21,6 +22,10 @@ const Home = () => {
 
   const createSong = async (e) => {
     e.preventDefault();
+    if (!newSongName.trim()) {
+      setError("Please enter a song name before submitting.");
+      return;
+    }
     try {
       const options = {
         method: "POST",
@@ -57,9 +62,13 @@ const Home = () => {
             name="name"
             id="name"
             value={newSongName}
-            onChange={(e) => setNewSongName(e.target.value)}
+            onChange={(e) => {
+              setNewSongName(e.target.value);
+              setError(""); // clear when user types
+            }}
           />
           <button type="submit">Submit</button>
+          {error && <p className="font-extrabold text-red-500">{error}</p>}
         </form>
         <h2 className=" text-center font-light text-purple-500 underline underline-offset-8">
           Songs

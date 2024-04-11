@@ -6,7 +6,6 @@ const SongDetails = () => {
   const [song, setSong] = useState({});
   const [newSongName, setNewSongName] = useState("");
   const [error, setError] = useState("");
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -24,17 +23,17 @@ const SongDetails = () => {
 
   // The delete does actually work it's just very random
   // sometimes 1 click sometimes 2-3 might just be a lag issue
-  useEffect(() => {
-    if (isConfirmingDelete) {
-      const confirmDeletion = window.confirm(
-        "Are you sure you want to delete this song?",
-      );
-      if (confirmDeletion) {
-        deleteSong();
-      }
-      setIsConfirmingDelete(false);
+  // I'm not sure if window.confirm runs async or not from my code I
+  // tried useEffect & state last commit and it still requires 2 clicks minimum
+  // to activate let me know if you have any ideas on how to fix this
+  const confirmAndDelete = async () => {
+    const confirmDeletion = window.confirm(
+      "Are you sure you want to delete this song?",
+    );
+    if (confirmDeletion) {
+      await deleteSong();
     }
-  }, [isConfirmingDelete]);
+  };
 
   const deleteSong = async () => {
     try {
@@ -76,12 +75,10 @@ const SongDetails = () => {
         <h1 className="pt-10 text-purple-500">Song Details</h1>
         <p className="font-light">song name : {song.name}</p>
         <p className="font-light">num: {song.id}</p>
-        <button
-          onClick={() => setIsConfirmingDelete(true)}
-          className="mx-auto w-[30%]"
-        >
+        <button onClick={confirmAndDelete} className="mx-auto w-[30%]">
           Delete Song
         </button>
+
         <form
           onSubmit={changeSongName}
           className="mx-auto flex w-[30%] flex-col gap-5"

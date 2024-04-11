@@ -8,44 +8,44 @@ Instances of this class can't do much really. They just store data.
 The class itself provides static methods for CRUD actions on 
 the collection of fellows.
 */
-class Fellow {
+class Song {
   static #all = [];
 
   constructor(name) { // Create
     this.id = getId();
     this.name = name;
 
-    Fellow.#all.push(this);
+    Song.#all.push(this);
   }
 
   static list() { // Get all
-    return Fellow.#all;
+    return Song.#all;
   }
 
   static find(id) { // Get one
-    return Fellow.#all.find((fellow) => fellow.id === id);
+    return Song.#all.find((song) => song.id === id);
   }
 
   static editName(id, newName) { // Update
-    const fellow = Fellow.find(id);
-    if (!fellow) return null;
-    fellow.name = newName;
-    return fellow;
+    const song = Song.find(id);
+    if (!song) return null;
+    song.name = newName;
+    return song;
   }
 
   static delete(id) { // Delete
-    const fellowIndex = Fellow.#all.findIndex((fellow) => fellow.id === id);
-    if (fellowIndex < 0) return null;
+    const songIndex = Song.#all.findIndex((song) => song.id === id);
+    if (songIndex < 0) return null;
 
-    Fellow.#all.splice(fellowIndex, 1);
+    Song.#all.splice(songIndex, 1);
     return true;
   }
 
   static deleteAll() { // Delete All
-    if (!Fellow.#all.length) return null;
+    if (!Song.#all.length) return null;
 
-    Fellow.#all.length = 0;
-    return Fellow.#all;
+    Song.#all.length = 0;
+    return Song.#all;
   }
 }
 
@@ -65,4 +65,4 @@ console.log(Fellow.delete(2))
 console.log(Fellow.list())
 */
 
-module.exports = Fellow;
+module.exports = Song;

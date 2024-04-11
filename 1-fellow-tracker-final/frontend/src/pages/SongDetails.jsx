@@ -5,7 +5,7 @@ import fetchData from "../utils/fetchData";
 const SongDetails = () => {
   const [song, setSong] = useState({});
   const [newSongName, setNewSongName] = useState("");
-
+  const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -35,6 +35,10 @@ const SongDetails = () => {
 
   const changeSongName = async (e) => {
     e.preventDefault();
+    if (!newSongName.trim()) {
+      setError("Please enter a song name before submitting.");
+      return;
+    }
     try {
       const options = {
         method: "PATCH",
@@ -73,9 +77,13 @@ const SongDetails = () => {
             name="name"
             id="name"
             value={newSongName}
-            onChange={(e) => setNewSongName(e.target.value)}
+            onChange={(e) => {
+              setNewSongName(e.target.value);
+              setError(""); // clears when user types
+            }}
           />
           <button type="submit">Submit</button>
+          {error && <p className="font-extrabold text-red-500">{error}</p>}
         </form>
         <Link to="/">
           <button>Go Home</button>

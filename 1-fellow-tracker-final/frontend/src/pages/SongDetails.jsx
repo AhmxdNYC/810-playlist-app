@@ -25,7 +25,7 @@ const SongDetails = () => {
   useEffect(() => {
     if (remove) {
       const confirmDeletion = window.confirm(
-        "Are you sure you want to delete this song?",
+        "Are you sure you want to delete this song???",
       );
       if (confirmDeletion) {
         deleteSong();

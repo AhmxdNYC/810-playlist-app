@@ -6,6 +6,7 @@ const SongDetails = () => {
   const [song, setSong] = useState({});
   const [newSongName, setNewSongName] = useState("");
   const [error, setError] = useState("");
+  const [remove, setRemove] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -20,6 +21,19 @@ const SongDetails = () => {
     };
     doFetch();
   }, []);
+
+  useEffect(() => {
+    if (remove) {
+      const confirmDeletion = window.confirm(
+        "Are you sure you want to delete this song?",
+      );
+      if (confirmDeletion) {
+        deleteSong();
+      } else {
+        setRemove(false);
+      }
+    }
+  }, [remove]);
 
   const deleteSong = async () => {
     try {
@@ -61,7 +75,7 @@ const SongDetails = () => {
         <h1 className="pt-10 text-purple-500">Song Details</h1>
         <p className="font-light">song name : {song.name}</p>
         <p className="font-light">num: {song.id}</p>
-        <button onClick={deleteSong} className="mx-auto w-[30%]">
+        <button onClick={() => setRemove(true)} className="mx-auto w-[30%]">
           Delete Song
         </button>
         <form

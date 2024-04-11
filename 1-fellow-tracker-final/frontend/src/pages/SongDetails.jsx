@@ -33,6 +33,7 @@ const SongDetails = () => {
     );
     if (confirmDeletion) {
       await deleteSong();
+      console.log("deleted");
     }
   };
 
@@ -47,7 +48,7 @@ const SongDetails = () => {
       console.log(error);
     }
   };
-
+  //
   const changeSongName = async (e) => {
     e.preventDefault();
     if (!newSongName.trim()) {

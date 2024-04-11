@@ -26,7 +26,7 @@ const SongDetails = () => {
   // I'm not sure if window.confirm runs async or not from my code I
   // tried useEffect & state last commit and it still requires 2 clicks minimum
   // to activate let me know if you have any ideas on how to fix this !
-  ////
+  /////
   const confirmAndDelete = async () => {
     const confirmDeletion = window.confirm(
       "Are you sure you want to delete this song?",
